@@ -14,7 +14,7 @@ export default function Home() {
     <div className="bg-neutral-200 text-neutral-800">
       <FocusedTask />
       <div className="h-screen w-screen flex flex-col">
-        <div className="h-1/5 lg:h-1/6 w-full flex justify-center items-center gap-3">
+        <div className="h-1/5 w-full flex justify-center items-center gap-3">
           <Image src="/lens.svg" width={80} height={80} alt="lens" />
         </div>
         <div className="flex h-full w-full">
