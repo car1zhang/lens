@@ -1,31 +1,37 @@
 'use client'
 import Image from 'next/image'
 import React from 'react'
+import FocusedTask from './components/focusedtask.component'
+
+import TaskList from './components/tasklist.component'
+import View from './components/view.component'
 
 export default function Home() {
-  const [focusedTask, setFocusedTask] = React.useState({})
 
-  React.useEffect(() => {
-    const fetchFocused = async () => {
-      const idResponse = await fetch('http://localhost:8000/tasks/focus/', {cache: 'no-store'})
-      const focusedId = await idResponse.json()
-      if(focusedId == '') {
-        setFocused({})
-        return
-      }
-      const response = await fetch('http://localhost:8000/tasks/' + focusedId, {cache: 'no-store'})
-      const focused = await response.json()
-      setFocusedTask(focused)
-      console.log(new Date(focused['deadline']))
-    }
-
-    fetchFocused()
-  }, [])
+  const [viewTaskId, setViewTaskId] = React.useState('')
 
   return (
-    <div>
-      <h1>{focusedTask['name']}</h1>
-      <p>{focusedTask['notes']}</p>
+    <div className="bg-neutral-200 text-neutral-800">
+      <FocusedTask />
+      <div className="h-screen w-screen flex flex-col">
+        <div className="h-1/6 w-full flex justify-center items-center gap-3">
+          <Image src="/lens.svg" width={80} height={80} alt="lens" />
+        </div>
+        <div className="flex h-full w-full">
+          <div className="relative grow border-t-2 border-neutral-800 h-full w-1/4 flex flex-col">
+            <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">organize</h1>
+
+          </div>
+          <div className="relative grow border-2 border-b-0 border-neutral-800 h-full w-2/4 flex flex-col">
+            <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">lens.</h1>
+            <TaskList viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} />
+          </div>
+          <div className="relative grow border-t-2 border-neutral-800 h-full w-1/4 flex flex-col">
+            <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">view</h1>
+            <View viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

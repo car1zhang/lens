@@ -18,6 +18,11 @@ def set_focused_task(_id: str, request: Request):
     task = request.app.database['tasks'].find_one({'_id': _id})
     request.app.focus = task['_id']
     return task
+@task_router.put('/focus/', response_description='unfocus task')
+def unfocus_task(request: Request, response: Response):
+    request.app.focus = ''
+    response.status_code = status.HTTP_204_NO_CONTENT
+    return response
 
 @task_router.get('/', response_description='get all tasks', response_model=List[Task])
 def get_all_tasks(request: Request):
@@ -35,7 +40,7 @@ def get_task(_id: str, request: Request):
 def post_task(request: Request, task: Task = Body(...)):
     task = jsonable_encoder(task)
     task['creation'] = datetime.datetime.now(tz=datetime.timezone.utc)
-    task['deadline'] = datetime.datetime.strptime(task['deadline'], '%Y-%m-%dT%H:%M:%S.%f')
+    task['deadline'] = datetime.datetime.strptime(task['deadline'], '%Y-%m-%dT%H:%M:%SZ')
     new_task = request.app.database['tasks'].insert_one(task)
     created_task = request.app.database['tasks'].find_one(
         {'_id': new_task.inserted_id}
