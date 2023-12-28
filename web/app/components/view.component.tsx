@@ -96,7 +96,7 @@ export default function View({ viewTaskId, setViewTaskId }) {
       <input className="text-neutral-400 px-4" type="datetime-local" onChange={e => setDeadline(new Date(e.target.value))} />
       <textarea className="resize-none px-4" placeholder="do so and so" rows={3} onChange={e => setNotes(e.target.value)} />
 
-      <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold mt-2" onClick={postTask}>post</button>
+      <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold mt-2 mx-4" onClick={postTask}>post</button>
     </div>
     :
     isEdit ? // edit
@@ -107,7 +107,7 @@ export default function View({ viewTaskId, setViewTaskId }) {
       <input className="text-neutral-400 px-4" defaultValue={viewTask['deadline']} type="datetime-local" onChange={e => setDeadline(new Date(e.target.value))} />
       <textarea className="resize-none px-4" defaultValue={viewTask['notes']} placeholder="do so and so" rows={3} onChange={e => setNotes(e.target.value)} />
 
-      <div className="flex gap-4 mt-2">
+      <div className="flex gap-4 mt-2 mx-4">
         <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold w-1/2" onClick={editTask}>save</button>
         <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold w-1/2" onClick={() => setIsEdit(false)}>cancel</button>
       </div>
