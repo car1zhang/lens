@@ -34,7 +34,7 @@ export default function FocusedTask() {
     <div className="text-neutral-100 z-50 fixed w-screen h-screen flex justify-center items-center">
       <div className="lg:w-1/3 w-4/5 flex flex-col bg-neutral-800 border-2 border-neutral-800 relative">
         <div className="flex flex-col p-6 items-center gap-6">
-          <h1 className="w-full text-center text-6xl leading-tight">{focusedTask['name']}</h1>
+          <h1 className="w-full text-center text-6xl leading-tight px-4">{focusedTask['name']}</h1>
           {focusedTask['deadline'] < Date.now() ? <p className="text-xl text-red-500">overdue</p>
           :
           <p className="text-xl text-neutral-100">
