@@ -9,6 +9,7 @@ from pymongo import MongoClient
 from routers.query import query_router
 from routers.modify import modify_router
 from routers.focus import focus_router
+from routers.tag import tag_router
 
 load_dotenv()
 app = FastAPI()
@@ -33,3 +34,4 @@ def shutdown_db_client():
 app.include_router(query_router, prefix="/tasks")
 app.include_router(modify_router, prefix="/tasks")
 app.include_router(focus_router, prefix="/tasks/focus")
+app.include_router(tag_router, prefix="/tags")

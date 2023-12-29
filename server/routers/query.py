@@ -10,9 +10,9 @@ from models import Task
 query_router = APIRouter()
 
 @query_router.get('/', response_description='get tasks while filtering/sorting - completion [0, 2] - priority [0, 4] - tag', response_model=List[Task])
-def get_all_tasks(request: Request, cf: int = 2, pf: int = 4, tf: Annotated[list[str] | None, Query()] = None):
+def get_all_tasks(request: Request, cf: int = 2, pf: int = 4, pfl: int = 0, tf: Annotated[list[str] | None, Query()] = None):
     params = {
-        'priority': {'$lte': pf}
+        'priority': {'$lte': pf, '$gte': pfl}
     }
     if cf == 0:
         params['completion'] = False

@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { priorityColors } from '@/app/prioritycolors'
 
 export default function Filter({ completionFilter, priorityFilter, tagsFilter, setCompletionFilter, setPriorityFilter, setTagsFilter }) {
 
@@ -29,8 +30,6 @@ export default function Filter({ completionFilter, priorityFilter, tagsFilter, s
     setNewTag('')
   }
 
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
-
   return (
     <div className="w-full h-full flex">
 
@@ -46,7 +45,7 @@ export default function Filter({ completionFilter, priorityFilter, tagsFilter, s
             </li>
           ))}
         </ul>
-        <button className="border-2 border-neutral-800 font-bold py-1 m-4 hover:bg-neutral-800 hover:text-neutral-200" onClick={clearTags}>clear</button>
+        <button className="border-2 border-neutral-800 font-bold py-1 m-4 mb-8 hover:bg-neutral-800 hover:text-neutral-200" onClick={clearTags}>clear</button>
       </div>
 
       <div className="flex flex-col w-1/2 border-l border-neutral-800 justify-between overflow-y-scroll">
@@ -63,7 +62,7 @@ export default function Filter({ completionFilter, priorityFilter, tagsFilter, s
           <p className={"py-1 px-4 text-right border-b border-neutral-400 text-xs cursor-pointer " + priorityColors[4] + (4 <= priorityFilter ? " bg-neutral-700 hover:bg-neutral-600" : " hover:bg-neutral-300")} onClick={() => setPriorityFilter(4)} >p4</p>
         </div>
 
-        <button className="border-2 border-neutral-800 font-bold py-1 m-4 hover:bg-neutral-800 hover:text-neutral-200" onClick={resetCompletionPriority}>reset</button>
+        <button className="border-2 border-neutral-800 font-bold py-1 m-4 mb-8 hover:bg-neutral-800 hover:text-neutral-200" onClick={resetCompletionPriority}>reset</button>
       </div>
 
     </div>

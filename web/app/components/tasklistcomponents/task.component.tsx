@@ -1,14 +1,17 @@
 'use client'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa6'
+import { priorityColors } from '@/app/prioritycolors'
 
-export default function Task({ task, viewTaskId, setViewTaskId }) {
+export default function Task({ u, fu, task, viewTaskId, setViewTaskId }) {
 
-  const finish = async () => {
+  const finish = async e => {
+    e.stopPropagation()
+
     await fetch('http://localhost:8000/tasks/toggle/' + task['_id'], {method: 'PUT'})
+    
+    fu({})
   }
-
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
 
   return (
     <li className={

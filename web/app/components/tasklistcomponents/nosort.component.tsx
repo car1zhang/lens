@@ -1,19 +1,13 @@
 'use client'
 import React from 'react'
 import Task from './task.component'
+import TaskSection from './tasksection.component'
 
-export default function NoSort({ taskList, viewTaskId, setViewTaskId }) {
+export default function NoSort({ u, fu, viewTaskId, setViewTaskId, fetchUrl }) {
 
   return (
     <div className="flex flex-col">
-      <ul>
-        <li className="px-6 py-2 border-b border-neutral-400 bg-neutral-800 text-neutral-200 font-bold">tasks</li>
-
-        {taskList.map(task => (
-          <Task key={task['_id']} task={task} viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} />
-        ))}
-
-      </ul>
+      <TaskSection u={u} fu={fu} viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} fetchUrl={fetchUrl} title="all tasks" titleModifier="" />
     </div>
   )
 }

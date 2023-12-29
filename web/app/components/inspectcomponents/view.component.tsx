@@ -1,20 +1,23 @@
 'use client'
 import React from 'react'
+import { priorityColors } from '@/app/prioritycolors'
 
-export default function View({ viewTask, setViewTaskId, setIsEdit }) {
+export default function View({ u, fu, viewTask, setViewTaskId, setIsEdit }) {
 
   const [confirmDel, setConfirmDel] = React.useState(false)
 
   const del = async () => {
     setViewTaskId('')
     await fetch('http://localhost:8000/tasks/' + viewTask['_id'], {method: 'DELETE'})
+
+    fu({})
   }
   const focus = async () => {
     await fetch('http://localhost:8000/tasks/focus/' + viewTask['_id'], {method: 'PUT'})
+
+    fu({})
   }
   
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
-
   return (
     <div className="w-full h-full flex flex-col justify-between">
       

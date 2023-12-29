@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
+import { priorityColors } from '@/app/prioritycolors'
 
-export default function Add() {
+export default function Add({ u, fu }) {
 
   const [name, setName] = React.useState('')
   const [tags, setTags] = React.useState('')
@@ -43,10 +44,10 @@ export default function Add() {
     setPriority(4)
     setDeadline(null)
     setNotes('')
+
+    fu({})
   }
 
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
-  
   // vertical compress squishes datetime input
   return (
     <div className="w-full h-full flex flex-col">

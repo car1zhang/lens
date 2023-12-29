@@ -1,37 +1,30 @@
 'use client'
 import React from 'react'
 import Task from './task.component'
+import TaskSection from './tasksection.component'
 
-export default function TagSort({ taskList, viewTaskId, setViewTaskId, tagsFilter }) {
+export default function TagSort({ u, fu, viewTaskId, setViewTaskId, tagsFilter, fetchUrl }) {
 
   const [tagList, setTagList] = React.useState(tagsFilter)
 
   React.useEffect(() => {
-    let unsorted = tagsFilter
-    if(unsorted.length == 0) {
-      for(const i in taskList) {
-        for(const j in taskList[i]['tags']) {
-          if(!unsorted.includes(taskList[i]['tags'][j])) unsorted = unsorted.concat([taskList[i]['tags'][j]])
-        }
-      }
+    const fetchTags = async () => {
+      const response = await fetch('http://localhost:8000/tags/', {cache: 'no-store'})
+      const tags = await response.json()
+      setTagList(tags)
     }
-    unsorted.sort()
-    setTagList(unsorted)
-  }, [tagsFilter, taskList])
+
+    if(tagsFilter.length == 0) {
+      fetchTags()
+    } else {
+      setTagList(tagsFilter)
+    }
+  }, [u, tagsFilter])
 
   return (
     <ul className="flex flex-col">
       {tagList.map((tag, idx) => (
-        <li key={idx} className="flex flex-col">
-          <h1 className="px-6 py-2 border-b border-neutral-400 bg-neutral-800 text-neutral-200 font-bold">
-            {tag}
-          </h1>
-          <ul className="flex flex-col">
-            {taskList.map(task => (!task['tags'].includes(tag) ? '' :
-              <Task key={task['_id']} task={task} viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} />
-            ))}
-          </ul>
-        </li>
+        <TaskSection u={u} fu={fu} key={idx} viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} fetchUrl={fetchUrl.split('&tf=')[0] + '&tf=' + tag} title={tag} titleModifier="" />
       ))}
     </ul>
   )

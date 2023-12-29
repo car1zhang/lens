@@ -1,8 +1,9 @@
 'use client'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa6'
+import { priorityColors } from '@/app/prioritycolors'
 
-export default function FocusedTask() {
+export default function FocusedTask({ u, fu }) {
   const [focusedTask, setFocusedTask] = React.useState({})
 
   React.useEffect(() => {
@@ -21,7 +22,7 @@ export default function FocusedTask() {
     }
 
     fetchFocusedTask()
-  })
+  }, [u])
 
   React.useEffect(() => {
     if(Object.keys(focusedTask).length > 0) {
@@ -31,12 +32,12 @@ export default function FocusedTask() {
 
   const finish = async () => {
     await fetch('http://localhost:8000/tasks/toggle/' + focusedTask['_id'], {method: 'PUT'})
+    fu({})
   }
   const unfocus = async () => {
     await fetch('http://localhost:8000/tasks/focus/', {method: 'PUT'})
+    fu({})
   }
-
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
 
   return ( // TODO tags
     Object.keys(focusedTask).length == 0 ? '' :

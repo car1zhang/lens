@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
+import { priorityColors } from '@/app/prioritycolors'
 
-export default function Edit({ viewTask, setViewTaskId, setIsEdit }) {
+export default function Edit({ u, fu, viewTask, setViewTaskId, setIsEdit }) {
 
   const [name, setName] = React.useState(viewTask['name'])
   const [tags, setTags] = React.useState(viewTask['tags'].join(' '))
@@ -32,9 +33,9 @@ export default function Edit({ viewTask, setViewTaskId, setIsEdit }) {
       })
     })
     setIsEdit(false)
-  }
 
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
+    fu({})
+  }
 
   return (
     <div className="w-full h-full flex flex-col justify-between">

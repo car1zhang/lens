@@ -4,7 +4,7 @@ import Add from './inspectcomponents/add.component.tsx'
 import Edit from './inspectcomponents/edit.component.tsx'
 import View from './inspectcomponents/view.component.tsx'
 
-export default function Inspect({ viewTaskId, setViewTaskId }) {
+export default function Inspect({ u, fu, viewTaskId, setViewTaskId }) {
 
   const [viewTask, setViewTask] = React.useState({})
 
@@ -19,18 +19,18 @@ export default function Inspect({ viewTaskId, setViewTaskId }) {
     }
 
     fetchViewTask()
-  })
-  React.useEffect(() => setIsEdit(false), [viewTaskId])
+  }, [u, viewTaskId])
+  React.useEffect(() => setIsEdit(false), [u, viewTaskId])
 
   return (
     <div className="flex flex-col h-full overflow-y-scroll">
       <h1 className="py-2 px-4 font-bold border-b border-neutral-400 bg-neutral-800 text-neutral-200">task</h1>
       {viewTaskId == '' ?
-      <Add />
+      <Add u={u} fu={fu} />
       : isEdit ? 
-      <Edit viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
+      <Edit u={u} fu={fu} viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
       :
-      <View viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
+      <View u={u} fu={fu} viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
       }
     </div>
   )
