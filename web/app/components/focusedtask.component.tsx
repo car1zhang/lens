@@ -31,13 +31,25 @@ export default function FocusedTask() {
 
   const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
 
-  return (
+  return ( // TODO tags
     Object.keys(focusedTask).length == 0 ? '' :
     <div className="text-neutral-200 z-50 fixed w-screen h-screen flex justify-center items-center">
       <div className="lg:w-1/3 w-4/5 flex flex-col bg-neutral-800 border-2 border-neutral-800 relative">
-        <div className="flex flex-col p-6 items-center gap-6">
+        <div className="flex flex-col p-6 items-center gap-4">
           <h1 className="w-full text-center text-6xl leading-tight px-4">{focusedTask['name']}</h1>
-          <p className="text-xl text-neutral-400">
+          {focusedTask['tags'] == null || focusedTask['tags'].length == 0 ? '' :
+            <ul className="text-xl text-neutral-400 flex">
+              {focusedTask['tags'].map((tag, idx) => (
+                <li key={idx}>
+                  {(idx == 0 ? '' : ', ') + tag}
+                </li>
+              ))}
+            </ul>
+          }
+        </div>
+
+        <div className="bg-neutral-200 p-6 flex flex-col gap-6">
+          <p className="text-xl text-neutral-800 self-center">
             <span className={priorityColors[focusedTask['priority']]}>
               p{focusedTask['priority']}
             </span>
@@ -52,10 +64,9 @@ export default function FocusedTask() {
             Math.floor((focusedTask['deadline'] - Date.now()) % 3600000 / 60000).toString() + ' minutes remain'
             }
           </p>
-        </div>
-
-        <div className="bg-neutral-200 p-6 flex flex-col gap-6">
-          <p className="text-xl text-neutral-800 whitespace-pre-wrap">{focusedTask['notes']}</p>
+          {focusedTask['notes'] == '' ? '' :
+            <p className="text-xl text-neutral-800 whitespace-pre-wrap">{focusedTask['notes']}</p>
+          }
           <button className="bg-neutral-200 border-2 border-neutral-800 text-neutral-800 p-3 text-xl hover:bg-neutral-800 hover:text-neutral-200 font-bold" onClick={() => {finish();unfocus();}}>finish</button>
         </div>
         <button className="absolute right-4 top-2 hover:text-neutral-400" onClick={unfocus}>X</button>

@@ -3,15 +3,15 @@ import React from 'react'
 
 export default function Task({ task, viewTaskId, setViewTaskId }) {
 
-  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
-
   const finish = async () => {
     await fetch('http://localhost:8000/tasks/toggle/' + task['_id'], {method: 'PUT'})
   }
 
+  const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
+
   return (
     <li className={
-      "border-b border-neutral-400 px-6 py-2 flex justify-between " + (viewTaskId == task['_id'] ? "bg-neutral-800 text-neutral-200 hover:bg-neutral-700" : "hover:bg-neutral-300")
+      "border-b border-neutral-400 px-6 py-2 flex justify-between " + (viewTaskId == task['_id'] ? "bg-neutral-700 text-neutral-200 hover:bg-neutral-600" : "hover:bg-neutral-300")
     }>
 
       <div className="flex gap-4">
@@ -21,7 +21,7 @@ export default function Task({ task, viewTaskId, setViewTaskId }) {
         } onClick={finish}>X</button>
 
         <h1 className={
-          "cursor-pointer w-48 " + (viewTaskId == task['_id'] ? "font-bold " : "") + (task['completion'] ? "line-through text-neutral-400 ": "")
+          "cursor-pointer w-64 overflow-clip " + (viewTaskId == task['_id'] ? "font-bold " : "") + (task['completion'] ? "line-through text-neutral-400 ": "")
         } onClick={() => {
           setViewTaskId(viewTaskId == task['_id'] ? '' : task['_id'])
         }}>
@@ -29,9 +29,9 @@ export default function Task({ task, viewTaskId, setViewTaskId }) {
         </h1>
 
         <ul className="text-neutral-400 flex">
-          {task['tags'].map(tag => (
-            <li key={tag}>
-              {(tag == task['tags'][0] ? '' : ', ') + tag}
+          {task['tags'].map((tag, idx) => (
+            <li key={idx}>
+              {(idx == 0 ? '' : ', ') + tag}
             </li>
           ))}
         </ul>

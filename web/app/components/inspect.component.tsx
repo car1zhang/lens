@@ -19,7 +19,7 @@ export default function Inspect({ viewTaskId, setViewTaskId }) {
     }
 
     fetchViewTask()
-  })
+  }, [viewTaskId, isEdit])
   React.useEffect(() => setIsEdit(false), [viewTaskId])
 
   return (viewTaskId == '' ?

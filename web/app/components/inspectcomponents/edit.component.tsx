@@ -25,7 +25,7 @@ export default function Edit({ viewTask, setViewTaskId, setIsEdit }) {
       },
       body: JSON.stringify({
         name: (name == '' ? 'new task' : name),
-        tags: tags.split(' '),
+        tags: (tags == '' ? [] : tags.split(' ')),
         priority: priority,
         deadline: dlstr,
         notes: notes
@@ -37,25 +37,28 @@ export default function Edit({ viewTask, setViewTaskId, setIsEdit }) {
   const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
 
   return (
-    <div className="w-full h-full overflow-y-scroll flex flex-col">
-      <h1 className="pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300">_id: {viewTask['_id']}</h1>
+    <div className="w-full h-full overflow-y-scroll flex flex-col justify-between">
 
-      <input className="text-2xl font-bold py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={name} placeholder="new task" onChange={e => setName(e.target.value)} />
-      <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={tags} placeholder="tags" onChange={e => setTags(e.target.value)} />
-      <select className={"py-2 px-4 border-b border-neutral-400 bg-white hover:bg-neutral-100 " + priorityColors[priority]} value={priority} onChange={e => setPriority(e.target.value)}>
-        <option className={priorityColors[0]} value={0}>priority 0</option>
-        <option className={priorityColors[1]} value={1}>priority 1</option>
-        <option className={priorityColors[2]} value={2}>priority 2</option>
-        <option className={priorityColors[3]} value={3}>priority 3</option>
-        <option className={priorityColors[4]} value={4}>priority 4</option>
-      </select>
-      <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={deadline} type="datetime-local" onChange={e => setDeadline(new Date(e.target.value))} />
-      <textarea className="resize-none py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={notes} placeholder="do so and so" rows={3} onChange={e => setNotes(e.target.value)} />
+      <div className="flex flex-col">
+        <input className="text-2xl font-bold pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={name} placeholder="new task" onChange={e => setName(e.target.value)} />
+        <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={tags} placeholder="tags" onChange={e => setTags(e.target.value)} />
+        <select className={"py-2 px-4 border-b border-neutral-400 bg-white hover:bg-neutral-100 " + priorityColors[priority]} value={priority} onChange={e => setPriority(e.target.value)}>
+          <option className={priorityColors[0]} value={0}>priority 0</option>
+          <option className={priorityColors[1]} value={1}>priority 1</option>
+          <option className={priorityColors[2]} value={2}>priority 2</option>
+          <option className={priorityColors[3]} value={3}>priority 3</option>
+          <option className={priorityColors[4]} value={4}>priority 4</option>
+        </select>
+        <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={viewTask['deadline']} type="datetime-local" onChange={e => setDeadline(new Date(e.target.value))} />
+        <textarea className="resize-none py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={notes} placeholder="do so and so" rows={3} onChange={e => setNotes(e.target.value)} />
 
-      <div className="flex gap-4 mt-4 mx-4">
-        <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold w-1/2" onClick={editTask}>save</button>
-        <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold w-1/2" onClick={() => setIsEdit(false)}>cancel</button>
+        <div className="flex gap-4 m-4">
+          <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold w-1/2" onClick={editTask}>save</button>
+          <button className="border-2 border-neutral-800 p-1 hover:text-neutral-200 hover:bg-neutral-800 font-bold w-1/2" onClick={() => setIsEdit(false)}>cancel</button>
+        </div>
       </div>
+
+      <h1 className="py-2 px-4 border-t border-neutral-400 hover:bg-neutral-300">_id: {viewTask['_id']}</h1>
     </div>
   )
 }
