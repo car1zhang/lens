@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { FaCheck } from 'react-icons/fa6'
 
 export default function FocusedTask() {
   const [focusedTask, setFocusedTask] = React.useState({})
@@ -21,6 +22,12 @@ export default function FocusedTask() {
 
     fetchFocusedTask()
   })
+
+  React.useEffect(() => {
+    if(Object.keys(focusedTask).length > 0) {
+      // new Notification('hi')
+    }
+  }, [focusedTask])
 
   const finish = async () => {
     await fetch('http://localhost:8000/tasks/toggle/' + focusedTask['_id'], {method: 'PUT'})
@@ -67,7 +74,7 @@ export default function FocusedTask() {
           {focusedTask['notes'] == '' ? '' :
             <p className="text-xl text-neutral-800 whitespace-pre-wrap">{focusedTask['notes']}</p>
           }
-          <button className="bg-neutral-200 border-2 border-neutral-800 text-neutral-800 p-3 text-xl hover:bg-neutral-800 hover:text-neutral-200 font-bold" onClick={() => {finish();unfocus();}}>finish</button>
+          <button className="bg-neutral-200 border-2 border-neutral-800 text-neutral-800 p-3 text-xl hover:bg-neutral-800 hover:text-neutral-200 font-bold flex justify-center" onClick={() => {finish();unfocus();}}><FaCheck /></button>
         </div>
         <button className="absolute right-4 top-2 hover:text-neutral-400" onClick={unfocus}>X</button>
       </div>
