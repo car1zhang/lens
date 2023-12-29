@@ -8,11 +8,11 @@ class Task(BaseModel):
     completion: bool = False
 
     creation: datetime.datetime = datetime.datetime.today()
-    deadline: datetime.datetime = datetime.datetime.today() + datetime.timedelta(days=1)
+    deadline: Optional[datetime.datetime] = None
     name: str = 'new task'
     tags: List[str] = []
-    priority: int = 0
-    notes: str = 'do so and so'
+    priority: int = 4
+    notes: str = ''
 
     parents: List[str] = []
     children: List[str] = []

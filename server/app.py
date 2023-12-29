@@ -6,7 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from pymongo import MongoClient
 
-from taskrouter import task_router
+from routers.query import query_router
+from routers.modify import modify_router
+from routers.focus import focus_router
 
 load_dotenv()
 app = FastAPI()
@@ -28,4 +30,6 @@ def startup_db_client():
 def shutdown_db_client():
     app.mongodb_client.close()
 
-app.include_router(task_router, prefix="/tasks")
+app.include_router(query_router, prefix="/tasks")
+app.include_router(modify_router, prefix="/tasks")
+app.include_router(focus_router, prefix="/tasks/focus")
