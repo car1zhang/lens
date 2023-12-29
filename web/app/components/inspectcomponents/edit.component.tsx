@@ -37,7 +37,7 @@ export default function Edit({ viewTask, setViewTaskId, setIsEdit }) {
   const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
 
   return (
-    <div className="w-full h-full overflow-y-scroll flex flex-col justify-between">
+    <div className="w-full h-full flex flex-col justify-between">
 
       <div className="flex flex-col">
         <input className="text-2xl font-bold pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={name} placeholder="new task" onChange={e => setName(e.target.value)} />

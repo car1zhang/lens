@@ -16,7 +16,7 @@ export default function View({ viewTask, setViewTaskId, setIsEdit }) {
   const priorityColors = ['text-red-400', 'text-amber-500', 'text-green-500', 'text-blue-400', 'text-neutral-400']
 
   return (
-    <div className="w-full h-full overflow-y-scroll flex flex-col justify-between">
+    <div className="w-full h-full flex flex-col justify-between">
       
       <div className="flex flex-col">
         <h1 className="text-2xl font-bold pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300">{viewTask['name']}</h1>

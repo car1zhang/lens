@@ -22,11 +22,16 @@ export default function Inspect({ viewTaskId, setViewTaskId }) {
   })
   React.useEffect(() => setIsEdit(false), [viewTaskId])
 
-  return (viewTaskId == '' ?
-    <Add />
-    : isEdit ? 
-    <Edit viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
-    :
-    <View viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
+  return (
+    <div className="flex flex-col h-full overflow-y-scroll">
+      <h1 className="py-2 px-4 font-bold border-b border-neutral-400 bg-neutral-800 text-neutral-200">task</h1>
+      {viewTaskId == '' ?
+      <Add />
+      : isEdit ? 
+      <Edit viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
+      :
+      <View viewTask={viewTask} setViewTaskId={setViewTaskId} setIsEdit={setIsEdit} />
+      }
+    </div>
   )
 }
