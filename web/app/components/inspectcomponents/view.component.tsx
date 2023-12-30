@@ -22,7 +22,7 @@ export default function View({ u, fu, viewTask, setViewTaskId, setIsEdit }) {
     <div className="w-full h-full flex flex-col justify-between">
       
       <div className="flex flex-col">
-        <h1 className="text-2xl font-bold pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300">{viewTask['name']}</h1>
+        <h1 className="text-2xl font-bold p-4 border-b border-neutral-400 hover:bg-neutral-300">{viewTask['name']}</h1>
         <ul className="flex py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300">
           {viewTask['tags'] == null ? '' :
             viewTask['tags'].length == 0 ? 'untagged' : 

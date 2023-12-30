@@ -13,17 +13,28 @@ modify_router = APIRouter()
 def post_task(request: Request, task: Task = Body(...)):
     task = jsonable_encoder(task)
     task['creation'] = datetime.datetime.now(tz=datetime.timezone.utc)
+
     if task['deadline'] is not None:
         task['deadline'] = datetime.datetime.strptime(task['deadline'], '%Y-%m-%dT%H:%M:%SZ') 
+        task['has_deadline'] = True
+    else:
+        task['has_deadline'] = False
+
     new_task = request.app.database['tasks'].insert_one(task)
     created_task = request.app.database['tasks'].find_one(
         {'_id': new_task.inserted_id}
         )
     return created_task
 
+
 @modify_router.put('/{_id}', response_description='edit a task', response_model=Task)
 def edit_task(_id: str, request: Request, task_update: TaskUpdate = Body(...)):
     task_update = {k: v for k, v in task_update.dict().items() if v is not None} # convert taskupdate object to dict
+
+    if 'deadline' in task_update and task_update['deadline'] is not None:
+        task_update['has_deadline'] = True
+    else:
+        task_update['has_deadline'] = False
 
     if len(task_update) >= 1:
         update_result = request.app.database['tasks'].update_one(
@@ -37,6 +48,7 @@ def edit_task(_id: str, request: Request, task_update: TaskUpdate = Body(...)):
     if (existing_task := request.app.database['tasks'].find_one({'_id': _id})) is not None:
         return existing_task
 
+
 @modify_router.put('/toggle/{_id}', response_description='toggle completion of a task', response_model=Task)
 def toggle_task(_id: str, request: Request):
     task = request.app.database['tasks'].find_one({'_id': _id})
@@ -45,6 +57,7 @@ def toggle_task(_id: str, request: Request):
         {'$set': {'completion': not task['completion']}}
         )
     return task
+
 
 @modify_router.delete('/{_id}', response_description='delete a task')
 def delete_task(_id: str, request: Request, response: Response):

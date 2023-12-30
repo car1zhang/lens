@@ -37,23 +37,23 @@ export default function Home() {
 
         <div className="flex h-4/5 w-full">
           <div className="w-1/4 flex-col h-full">
-            <div className="relative border-t-2 border-neutral-800 h-1/2 w-full flex flex-col">
+            <div className="relative border-t-2 border-black h-1/2 w-full flex flex-col">
               <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">organize</h1>
               <Sort groupMethod={groupMethod} setGroupMethod={setGroupMethod} />
             </div>
 
-            <div className="relative border-t-2 border-neutral-800 h-1/2 w-full flex flex-col">
+            <div className="relative border-t-2 border-black h-1/2 w-full flex flex-col">
               <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">filter</h1>
               <Filter completionFilter={completionFilter} priorityFilter={priorityFilter} tagsFilter={tagsFilter} setCompletionFilter={setCompletionFilter} setPriorityFilter={setPriorityFilter} setTagsFilter={setTagsFilter} />
             </div>
           </div>
 
-          <div className="relative border-2 border-b-0 border-neutral-800 h-full w-2/4 flex flex-col">
+          <div className="relative border-2 border-b-0 border-black h-full w-2/4 flex flex-col">
             <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">lens.</h1>
             <TaskList u={u} fu={fu} viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} completionFilter={completionFilter} priorityFilter={priorityFilter} tagsFilter={tagsFilter} groupMethod={groupMethod} />
           </div>
 
-          <div className="relative border-t-2 border-neutral-800 h-full w-1/4 flex flex-col">
+          <div className="relative border-t-2 border-black h-full w-1/4 flex flex-col">
             <h1 className="text-2xl font-bold bg-neutral-200 self-center absolute -top-5 px-3">inspect</h1>
             <Inspect u={u} fu={fu} viewTaskId={viewTaskId} setViewTaskId={setViewTaskId} />
           </div>

@@ -9,6 +9,7 @@ class Task(BaseModel):
 
     creation: datetime.datetime = datetime.datetime.today()
     deadline: Optional[datetime.datetime] = None
+    has_deadline: bool = False
     name: str = 'new task'
     tags: List[str] = []
     priority: int = 4

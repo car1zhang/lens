@@ -51,7 +51,7 @@ export default function Add({ u, fu }) {
   // vertical compress squishes datetime input
   return (
     <div className="w-full h-full flex flex-col">
-      <input className="text-2xl font-bold pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" placeholder="new task" value={name} onChange={e => setName(e.target.value)} />
+      <input className="text-2xl font-bold p-4 border-b border-neutral-400 hover:bg-neutral-100" placeholder="new task" value={name} onChange={e => setName(e.target.value)} />
       <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" placeholder="tags" value={tags} onChange={e => setTags(e.target.value)} />
       <select className={"py-2 px-4 border-b border-neutral-400 bg-white hover:bg-neutral-100 " + priorityColors[priority]} value={priority} onChange={e => setPriority(e.target.value)}>
         <option className={priorityColors[0]} value={0}>priority 0</option>

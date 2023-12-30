@@ -41,7 +41,7 @@ export default function Edit({ u, fu, viewTask, setViewTaskId, setIsEdit }) {
     <div className="w-full h-full flex flex-col justify-between">
 
       <div className="flex flex-col">
-        <input className="text-2xl font-bold pt-4 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={name} placeholder="new task" onChange={e => setName(e.target.value)} />
+        <input className="text-2xl font-bold p-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={name} placeholder="new task" onChange={e => setName(e.target.value)} />
         <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" defaultValue={tags} placeholder="tags" onChange={e => setTags(e.target.value)} />
         <select className={"py-2 px-4 border-b border-neutral-400 bg-white hover:bg-neutral-100 " + priorityColors[priority]} value={priority} onChange={e => setPriority(e.target.value)}>
           <option className={priorityColors[0]} value={0}>priority 0</option>

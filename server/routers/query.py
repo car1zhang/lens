@@ -21,10 +21,12 @@ def get_all_tasks(request: Request, cf: int = 2, pf: int = 4, pfl: int = 0, tf: 
     if tf is not None:
         params['$or'] = [{'tags': tag} for tag in tf]
 
-    tasks = list(request.app.database['tasks'].find(params).sort(['completion', 'priority', 'deadline', 'name']))
+    tasks = list(request.app.database['tasks'].find(params).sort(['completion', 'priority', ('has_deadline', -1), 'deadline', 'name']))
     for task in tasks:
         task['_id'] = str(task['_id'])
+        
     return tasks
+
 
 @query_router.get('/{_id}', response_description='get details of a task', response_model=Task)
 def get_task(_id: str, request: Request):
