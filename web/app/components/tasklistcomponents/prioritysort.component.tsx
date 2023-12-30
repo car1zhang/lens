@@ -9,7 +9,7 @@ export default function PrioritySort({ u, fu, viewTaskId, setViewTaskId, priorit
   const [priorityList, setPriorityList] = React.useState([])
 
   React.useEffect(() => {
-    setPriorityList([...Array(priorityFilter+1).keys()])
+    setPriorityList(Array.from(Array(priorityFilter+1).keys()))
   }, [priorityFilter])
 
   return (

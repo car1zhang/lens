@@ -35,7 +35,7 @@ export default function View({ u, fu, viewTask, setViewTaskId, setIsEdit }) {
         </ul>
         <p className={"py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300 " + priorityColors[viewTask['priority']]}>priority {viewTask['priority']}</p>
         <p className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300">
-          {viewTask['deadline'] == null ? 'no deadline' : (new Date(viewTask['deadline'])).toString()}
+          {!viewTask['has_deadline'] ? 'no deadline' : viewTask['deadline'].toString()}
         </p>
         {viewTask['notes'] == '' ? '' : 
           <p className="whitespace-pre-wrap py-2 px-4 border-b border-neutral-400 hover:bg-neutral-300">{viewTask['notes']}</p>

@@ -16,7 +16,7 @@ export default function FocusedTask({ u, fu }) {
         const response = await fetch('http://localhost:8000/tasks/' + focusedId, {cache: 'no-store'})
         const focused = await response.json()
         focused['creation'] = new Date(focused['creation'])
-        if(focused['deadline'] != null) focused['deadline'] = new Date(focused['deadline']) // TODO convert all dates in fetch function
+        if(focused['has_deadline']) focused['deadline'] = new Date(focused['deadline']) // TODO convert all dates in fetch function
         setFocusedTask(focused)
       }
     }
@@ -66,10 +66,10 @@ export default function FocusedTask({ u, fu }) {
 
             {focusedTask['deadline'] == null ? 'just do it'
             :
-            focusedTask['deadline'] < Date.now() ? 'overdue'
+            focusedTask['deadline'] < new Date() ? 'overdue'
             :
-            Math.floor((focusedTask['deadline'] - Date.now()) / 3600000).toString() + ' hours and ' +
-            Math.floor((focusedTask['deadline'] - Date.now()) % 3600000 / 60000).toString() + ' minutes remain'
+            Math.floor((focusedTask['deadline'].valueOf() - Date.now()) / 3600000).toString() + ' hours and ' +
+            Math.floor((focusedTask['deadline'].valueOf() - Date.now()) % 3600000 / 60000).toString() + ' minutes remain'
             }
           </p>
           {focusedTask['notes'] == '' ? '' :

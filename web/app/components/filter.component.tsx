@@ -7,8 +7,8 @@ export default function Filter({ completionFilter, priorityFilter, tagsFilter, s
   const [filterIncomplete, setFilterIncomplete] = React.useState(true)
   const [filterComplete, setFilterComplete] = React.useState(false)
   React.useEffect(() => {
-    setCompletionFilter((filterIncomplete + 2*filterComplete + 2) % 3)
-  }, [filterIncomplete, filterComplete])
+    setCompletionFilter(( (filterIncomplete?1:0) + (filterComplete?2:0) + 2) % 3)
+  }, [filterIncomplete, filterComplete, setCompletionFilter])
 
   const resetCompletionPriority = () => {
     setFilterIncomplete(true)

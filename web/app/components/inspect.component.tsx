@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import Add from './inspectcomponents/add.component.tsx'
-import Edit from './inspectcomponents/edit.component.tsx'
-import View from './inspectcomponents/view.component.tsx'
+import Add from './inspectcomponents/add.component'
+import Edit from './inspectcomponents/edit.component'
+import View from './inspectcomponents/view.component'
 
 export default function Inspect({ u, fu, viewTaskId, setViewTaskId }) {
 
@@ -15,12 +15,12 @@ export default function Inspect({ u, fu, viewTaskId, setViewTaskId }) {
       const response = await fetch('http://localhost:8000/tasks/' + viewTaskId)
       const view = await response.json()
       if(view['completion']) setIsEdit(false)
+      if(view['has_deadline']) view['deadline'] = new Date(view['deadline'])
       setViewTask(view)
     }
 
     fetchViewTask()
   }, [u, viewTaskId])
-  React.useEffect(() => setIsEdit(false), [u, viewTaskId])
 
   return (
     <div className="flex flex-col h-full overflow-y-scroll">

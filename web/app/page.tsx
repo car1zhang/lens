@@ -31,7 +31,7 @@ export default function Home() {
 
       <div className="h-screen w-screen flex flex-col">
         <div className="relative h-1/5 w-full flex justify-center items-center">
-          <Image src={icon} width={80} height={80} alt="lens" className="cursor-pointer" draggable="false" onClick={() => window.location.reload(true)} />
+          <Image src={icon} width={80} height={80} alt="lens" className="cursor-pointer" draggable="false" onClick={() => window.location.reload()} />
           <p className="text-xs text-neutral-400 absolute top-0 right-0 m-2">Built and maintained by <a href="https://car1zhang.com" className="underline hover:text-neutral-500">Carl Zhang</a>.</p>
         </div>
 

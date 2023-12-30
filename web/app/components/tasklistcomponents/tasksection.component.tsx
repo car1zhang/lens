@@ -12,6 +12,9 @@ export default function TaskSection({ u, fu, viewTaskId, setViewTaskId, fetchUrl
     const fetchTasks = async () => {
       const response = await fetch(fetchUrl, {cache: 'no-store'})
       const tasks = await response.json()
+      for(const i in tasks) {
+        if(tasks[i]['has_deadline']) tasks[i]['deadline'] = new Date(tasks[i]['deadline'])
+      }
       setTaskList(tasks)
     }
 

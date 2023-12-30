@@ -13,8 +13,8 @@ export default function Add({ u, fu }) {
   const postTask = async() => {
 
     let dlstr
-    if(deadline != null && deadline.valueOf() != 0 && !isNaN(deadline)) {
-      const offsetdl = new Date(deadline - (new Date()).getTimezoneOffset() * 60000)
+    if(deadline != null && deadline.valueOf() != 0 && !isNaN(deadline.valueOf())) {
+      const offsetdl = new Date(deadline.valueOf() - (new Date()).getTimezoneOffset() * 60000)
       dlstr = offsetdl.toISOString().split('.')[0]+'Z'
     } else {
       dlstr = null
@@ -53,7 +53,7 @@ export default function Add({ u, fu }) {
     <div className="w-full h-full flex flex-col">
       <input className="text-2xl font-bold p-4 border-b border-neutral-400 hover:bg-neutral-100" placeholder="new task" value={name} onChange={e => setName(e.target.value)} />
       <input className="text-neutral-400 py-2 px-4 border-b border-neutral-400 hover:bg-neutral-100" placeholder="tags" value={tags} onChange={e => setTags(e.target.value)} />
-      <select className={"py-2 px-4 border-b border-neutral-400 bg-white hover:bg-neutral-100 " + priorityColors[priority]} value={priority} onChange={e => setPriority(e.target.value)}>
+      <select className={"py-2 px-4 border-b border-neutral-400 bg-white hover:bg-neutral-100 " + priorityColors[priority]} value={priority} onChange={e => setPriority(Number(e.target.value))}>
         <option className={priorityColors[0]} value={0}>priority 0</option>
         <option className={priorityColors[1]} value={1}>priority 1</option>
         <option className={priorityColors[2]} value={2}>priority 2</option>

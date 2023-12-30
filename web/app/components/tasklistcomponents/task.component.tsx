@@ -52,11 +52,11 @@ export default function Task({ u, fu, task, viewTaskId, setViewTaskId }) {
           </span>
 
           {task['deadline'] == null ? '' : 
-            (new Date(task['deadline']) < Date.now() ? <span className="text-red-400"> · overdue</span> :
+            (new Date(task['deadline']) < new Date() ? <span className="text-red-400"> · overdue</span> :
               <span className="text-neutral-400">
                 {' · '}
-                {Math.floor((new Date(task['deadline']) - Date.now()) / 3600000)}h
-                {Math.floor((new Date(task['deadline']) - Date.now()) % 3600000 / 60000)}m
+                {Math.floor((task['deadline'].valueOf() - Date.now()) / 3600000)}h
+                {Math.floor((task['deadline'].valueOf() - Date.now()) % 3600000 / 60000)}m
               </span>
             )
           }
