@@ -47,6 +47,7 @@ fn main() {
             SystemTrayEvent::LeftClick { .. } => { // show window on click
                 let window = app.get_window("main").unwrap();
                 window.show().unwrap();
+                window.unminimize().unwrap();
                 window.set_focus().unwrap();
             }
             _ => {}
