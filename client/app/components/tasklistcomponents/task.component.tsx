@@ -29,7 +29,7 @@ export default function Task({ u, fu, task, viewTaskId, setViewTaskId }) {
         </button>
 
         <h1 className={
-          "w-64 overflow-clip " + (viewTaskId == task['_id'] ? "font-bold " : "") + (task['completion'] ? "line-through text-neutral-400 ": "")
+          "w-52 xl:w-64 overflow-clip " + (viewTaskId == task['_id'] ? "font-bold " : "") + (task['completion'] ? "line-through text-neutral-400 ": "")
         }>
           {task['name']}
         </h1>
@@ -51,8 +51,8 @@ export default function Task({ u, fu, task, viewTaskId, setViewTaskId }) {
             p{task['priority']}
           </span>
 
-          {task['deadline'] == null ? '' : 
-            (new Date(task['deadline']) < new Date() ? <span className="text-red-400"> · overdue</span> :
+          {!task['has_deadline'] ? '' : 
+            (task['deadline'] < new Date() ? <span className="text-red-400"> · overdue</span> :
               <span className="text-neutral-400">
                 {' · '}
                 {Math.floor((task['deadline'].valueOf() - Date.now()) / 3600000)}h
