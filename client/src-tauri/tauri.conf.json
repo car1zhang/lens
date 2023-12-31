@@ -16,8 +16,8 @@
       "iconAsTemplate": true
     },
     "allowlist": {
-      "notification": {
-        "all": true
+      "window": {
+        "startDragging": true
       }
     },
     "bundle": {
@@ -48,6 +48,9 @@
       "shortDescription": "",
       "targets": "all",
       "windows": {
+        "webviewInstallMode": {
+          "type": "downloadBootstrapper"
+        },
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
         "timestampUrl": ""
@@ -61,12 +64,24 @@
     },
     "windows": [
       {
-        "label": "lens",
-        "fullscreen": false,
-        "height": 900,
+        "label": "main",
         "resizable": true,
+        "minHeight": 600,
+        "minWidth": 1100,
+        "height": 900,
+        "width": 1400,
         "title": "lens",
-        "width": 1400
+        "url": "/"
+      },
+      {
+        "label": "focus",
+        "resizable": false,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "height": 115,
+        "width": 400,
+        "url": "/focus/"
       }
     ]
   }

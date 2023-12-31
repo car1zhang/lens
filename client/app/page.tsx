@@ -7,7 +7,7 @@ import Filter from './components/filter.component'
 import Sort from './components/sort.component'
 import TaskList from './components/tasklist.component'
 import Inspect from './components/inspect.component'
-import icon from '@/public/lens.svg'
+import Icon from '@/public/lens.svg'
 
 export default function Home() {
 
@@ -27,7 +27,7 @@ export default function Home() {
 
       <div className="h-screen w-screen flex flex-col">
         <div className="relative h-1/5 w-full flex justify-center items-center">
-          <Image src={icon} width={80} height={80} alt="lens" className="cursor-pointer" draggable="false" onClick={() => window.location.reload()} />
+          <Image src={Icon} width={80} height={80} alt="lens" className="cursor-pointer" draggable="false" onClick={() => window.location.reload()} />
           <p className="text-xs text-neutral-400 absolute top-0 right-0 m-2">Built and maintained by Carl Zhang.</p>
         </div>
 

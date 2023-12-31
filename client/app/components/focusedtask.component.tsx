@@ -2,49 +2,46 @@
 import React from 'react'
 import { FaCheck } from 'react-icons/fa6'
 import { priorityColors } from '@/app/prioritycolors'
+import { emit, listen } from '@tauri-apps/api/event'
 
 export default function FocusedTask({ u, fu }) {
   const [focusedTask, setFocusedTask] = React.useState({})
 
   React.useEffect(() => {
     const fetchFocusedTask = async () => {
-      const idResponse = await fetch('http://localhost:8000/tasks/focus/', {cache: 'no-store'})
+      const idResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/tasks/focus/', {cache: 'no-store'})
       const focusedId = await idResponse.json()
       if(focusedId == '') {
         setFocusedTask({})
+        emit('unfocus', {})
       } else {
-        const response = await fetch('http://localhost:8000/tasks/' + focusedId, {cache: 'no-store'})
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/tasks/' + focusedId, {cache: 'no-store'})
         const focused = await response.json()
         focused['creation'] = new Date(focused['creation'])
-        if(focused['has_deadline']) focused['deadline'] = new Date(focused['deadline']) // TODO convert all dates in fetch function
+        if(focused['has_deadline']) focused['deadline'] = new Date(focused['deadline'])
         setFocusedTask(focused)
+        emit('focus', {})
       }
     }
 
     fetchFocusedTask()
   }, [u])
 
-  React.useEffect(() => {
-    if(Object.keys(focusedTask).length > 0) {
-      // new Notification('hi')
-    }
-  }, [focusedTask])
-
   const finish = async () => {
-    await fetch('http://localhost:8000/tasks/toggle/' + focusedTask['_id'], {method: 'PUT'})
+    await fetch(process.env.NEXT_PUBLIC_API_URL + '/tasks/toggle/' + focusedTask['_id'], {method: 'PUT'})
     fu({})
   }
   const unfocus = async () => {
-    await fetch('http://localhost:8000/tasks/focus/', {method: 'PUT'})
+    await fetch(process.env.NEXT_PUBLIC_API_URL + '/tasks/focus/', {method: 'PUT'})
     fu({})
   }
 
-  return ( // TODO tags
+  return (
     Object.keys(focusedTask).length == 0 ? '' :
     <div className="text-neutral-200 z-50 fixed w-screen h-screen flex justify-center items-center">
-      <div className="lg:w-1/3 w-4/5 flex flex-col bg-neutral-800 border-2 border-neutral-800 relative">
+      <div className="2xl:w-1/3 lg:w-1/2 w-4/5 flex flex-col bg-neutral-800 border-2 border-neutral-800 relative">
         <div className="flex flex-col p-6 items-center gap-4">
-          <h1 className="w-full text-center text-6xl leading-tight px-4">{focusedTask['name']}</h1>
+          <h1 className="w-full text-center text-6xl leading-tight px-4 break-words">{focusedTask['name']}</h1>
           {focusedTask['tags'] == null || focusedTask['tags'].length == 0 ? '' :
             <ul className="text-xl text-neutral-400 flex">
               {focusedTask['tags'].map((tag, idx) => (
@@ -66,7 +63,7 @@ export default function FocusedTask({ u, fu }) {
 
             {focusedTask['deadline'] == null ? 'just do it'
             :
-            focusedTask['deadline'] < new Date() ? 'overdue'
+            focusedTask['deadline'] < new Date() ? 'overdue' // todo make this red
             :
             Math.floor((focusedTask['deadline'].valueOf() - Date.now()) / 3600000).toString() + ' hours and ' +
             Math.floor((focusedTask['deadline'].valueOf() - Date.now()) % 3600000 / 60000).toString() + ' minutes remain'
